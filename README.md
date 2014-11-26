@@ -9,7 +9,7 @@ Currently:
 * Simple `resque:work` task wrapper to better handle exceptions in the worker
 * Marker interface to document jobs which should not be retried
 
-Maybe will have more stuff1
+Maybe will have more stuff someday.
 
 ## To use
 
@@ -48,6 +48,12 @@ end
 
 # foo_service_spec.rb
 describe FooService do
+  include Resqutils::Spec::ResqueHelpers
+  
+  before do
+    clear_queue(FooJob) # Looks at what queue FooJob uses and clears before each test
+  end
+  
   it "queues a job" do
     result = FooService.new.doit("blah")
 
@@ -71,6 +77,11 @@ end
 # foo_service_spec.rb
 
 describe FooService do
+  include Resqutils::Spec::ResqueHelpers
+  
+  before do
+    clear_queue(:delayed) # Clears all delayed/scheduled queues
+  end
   it "queues a job" do
     result = FooService.new.doit("blah")
 
