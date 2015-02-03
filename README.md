@@ -35,6 +35,19 @@ end
 
 `require`ing the `resqutils/spec` will also set up the `have_job_queued` matcher, which is likely what you'll want to use.
 
+### Clearing Jobs
+
+The most important part of using Resque in tests as making sure the queue has what you
+think it has in it.  To that end, you'll likely need `clear_queue` in a `setup` or
+`before` block.
+
+```ruby
+before do
+  clear_queue(MyImportantJob) # clears whatever queue this job is configured to use
+  clear_queue(:foobar)        # clear the "foobar" queue
+end
+```
+
 ### Checking that Jobs Were Queued
 
 ```ruby
