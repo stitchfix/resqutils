@@ -35,7 +35,7 @@ You need a means of identifying these workers, and then killing them.
 ```ruby
 Resqutils::StaleWorkers.new.each do |worker|
   # this worker is still considered running but has started over an hour ago
-  Resque.enqueue(WorkerKillerJob,worker.id)
+  Resque.enqueue(Resqutils::WorkerKillerJob,worker.id)
 end
 ```
 
