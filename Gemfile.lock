@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    resqutils (0.0.1)
+    resqutils (1.0.0)
       resque
 
 GEM
