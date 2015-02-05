@@ -10,7 +10,7 @@ module Resqutils
                  end
     end
     def self.perform(worker_id)
-      Resque.workers.detect { |_| _.id == worker_id }.unregister_worker
+      Resque.workers.select { |_| _.id == worker_id }.each(&:unregister_worker)
     end
   end
 end
