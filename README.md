@@ -33,17 +33,21 @@ failed handling (which is hopefully to restart your jobs).
 You need a means of identifying these workers, and then killing them.
 
 ```ruby
-Resqutils::StaleWorkers.new.each do |worker|
-  # this worker is still considered running but has started over an hour ago
-  Resque.enqueue(Resqutils::WorkerKillerJob,worker.id)
-end
+Resqutils::StaleWorkersKiller.kill_stale_workers
 ```
 
-`Resqutils::StaleWorkers`'s default of an hour can be overridden either in the constructor or by setting the
-`RESQUTILS_SECONDS_TO_BE_CONSIDERED_STALE` environment variable.
+This will queue a `WorkerKillerJob` for each stale worker.  This uses `Resqutils::StaleWorkers` under the covers to identify
+which are stale.  You can pass it in to `StaleWorkersKiller`'s constructor, or configure it using the environment.  By
+default, a worker running for more than an hour is considered stale.
 
-The queue that `WorkerKillerJob` will queue to is `worker_killer_job` by default, but can either be set during the `enqueue`
-call or by setting the `RESQUTILS_WORKER_KILLER_JOB_QUEUE` environment variable.
+Setting the `RESQUTILS_SECONDS_TO_BE_CONSIDERED_STALE` environment variable, you can override that.
+
+The queue that `WorkerKillerJob` will queue to is `worker_killer_job` by default, but can be changed by setting the `RESQUTILS_WORKER_KILLER_JOB_QUEUE` environment variable.
+
+`Resqutils::StaleWorkersKiller` is also itself a resque job, so you can use this class directly in your resque-scheduler
+implementation to kill stale jobs on a schedule.
+
+You can, of course, use these building blocks on your own for other purposes.
 
 ## Spec Helpers
 

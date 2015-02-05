@@ -23,37 +23,48 @@ describe Resqutils::WorkerKillerJob do
     end
   end
   describe "::perform" do
-    let(:workers) {
-      [
-        double(id: worker_id),
-        double(id: worker_id),
-        double(id: worker_id),
-        double(id: worker_id),
-        double(id: worker_id),
-        double(id: worker_id),
-      ]
-    }
+    context "worker to kill exists" do
+      let(:workers) {
+        [
+          double(id: worker_id),
+          double(id: worker_id),
+          double(id: worker_id),
+          double(id: worker_id),
+          double(id: worker_id),
+          double(id: worker_id),
+        ]
+      }
 
-    let(:worker_to_kill) { workers[2] }
+      let(:worker_to_kill) { workers[2] }
 
-    before do
-      allow(Resque).to receive(:workers).and_return(workers)
-      workers.each do |worker|
-        allow(worker).to receive(:unregister_worker)
+      before do
+        allow(Resque).to receive(:workers).and_return(workers)
+        workers.each do |worker|
+          allow(worker).to receive(:unregister_worker)
+        end
+        described_class.perform(worker_to_kill.id)
       end
-      described_class.perform(worker_to_kill.id)
-    end
 
-    it "unregisters the worker we want to kill" do
-      expect(worker_to_kill).to have_received(:unregister_worker)
-    end
+      it "unregisters the worker we want to kill" do
+        expect(worker_to_kill).to have_received(:unregister_worker)
+      end
 
-    it "doesn't touch the other workers" do
-      workers.reject { |_| _ == worker_to_kill }.each do |worker|
-        expect(worker).not_to have_received(:unregister_worker)
+      it "doesn't touch the other workers" do
+        workers.reject { |_| _ == worker_to_kill }.each do |worker|
+          expect(worker).not_to have_received(:unregister_worker)
+        end
       end
     end
-
+    context "worker to doesn't exist" do
+      before do
+        allow(Resque).to receive(:workers).and_return([])
+      end
+      it "doesn't blow up" do
+        expect {
+          described_class.perform(worker_id)
+        }.not_to raise_error
+      end
+    end
   end
 
   def worker_id
