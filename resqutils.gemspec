@@ -7,11 +7,11 @@ Gem::Specification.new do |s|
   s.version     = Resqutils::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Stitch Fix Engineering']
-  s.email       = ['eng@stitchfix.com']
-  s.homepage    = "http://tech.stitchfix.com"
+  s.email       = ['opensource@stitchfix.com']
+  s.license     = "Apache License Version 2.0, January 2004"
+  s.homepage    = "https://github.com/stitchfix/resqutils"
   s.summary     = "Utilities for using Resque in a Rails app"
   s.description = "Utilities for using Resque in a Rails app"
-  s.rubyforge_project = "resqutils"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
