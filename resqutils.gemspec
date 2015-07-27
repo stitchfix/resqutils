@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Resqutils::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Stitch Fix Engineering","Dave Copeland","Simeon Willbanks"]
-  s.email       = ["opensource@stitchfix.com","davetron5000@gmail.com","simeon@stitchfix.com"]
+  s.email       = ["opensource@stitchfix.com","davetron5000@gmail.com","simeon@simeons.net"]
   s.license     = "Apache License Version 2.0, January 2004"
   s.homepage    = "https://github.com/stitchfix/resqutils"
   s.summary     = "Utilities for using Resque in a Rails app"
