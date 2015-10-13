@@ -12,7 +12,13 @@ RSpec::Matchers.define :have_job_queued do |expected_job_hash|
     jobs_matching(queue_name,expected_job_hash).first.size == 1
   end
 
-  failure_message do |queue_name|
+  failure_message_method = if defined?(failure_message)
+                             :failure_message
+                           else
+                             :failure_message_for_should
+                           end
+
+  send(failure_message_method) do |queue_name|
     matching_jobs,all_jobs = jobs_matching(queue_name,expected_job_hash)
     if matching_jobs.empty?
       "No jobs in #{queue_name} matched #{expected_job_hash.inspect} (Found these jobs: #{all_jobs.map(&:inspect).join(',')})"
@@ -21,7 +27,13 @@ RSpec::Matchers.define :have_job_queued do |expected_job_hash|
     end
   end
 
-  failure_message_when_negated do |queue_name|
+  failure_message_when_negated_method = if defined?(failure_message_when_negated)
+                                          :failure_message_when_negated
+                                        else
+                                          :failure_message_for_should_not
+                                        end
+
+  send(failure_message_when_negated_method) do |queue_name|
     "Found job #{expected_job_hash.inspect} in the queue"
   end
 end
