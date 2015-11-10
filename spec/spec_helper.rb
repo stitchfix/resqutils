@@ -1,5 +1,6 @@
 require 'resque'
 require 'resqutils'
+require 'resqutils/spec'
 
 GEM_ROOT = File.expand_path(File.join(File.dirname(__FILE__),'..'))
 Dir["#{GEM_ROOT}/spec/support/**/*.rb"].sort.each {|f| require f}
