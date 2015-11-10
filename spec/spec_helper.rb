@@ -1,3 +1,4 @@
+require 'fakeredis'
 require 'resque'
 require 'resqutils'
 require 'resqutils/spec'
