@@ -1,0 +1,7 @@
+source 'https://www.rubygems.org'
+
+group :test, :development do
+  gem "rspec", "~> 2"
+end
+
+gemspec path: "../"

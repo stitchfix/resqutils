@@ -5,3 +5,6 @@ rvm:
   - 2.0.0
   - 1.9.3
   - ruby-head
+gemfile:
+  - Gemfile
+  - gemfiles/rspec2.gemfile
