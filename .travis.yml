@@ -8,5 +8,3 @@ rvm:
 gemfile:
   - Gemfile
   - gemfiles/rspec2.gemfile
-env:
-  - RESQUTILS_SECONDS_TO_BE_CONSIDERED_STALE=1
