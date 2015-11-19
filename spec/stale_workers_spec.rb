@@ -14,8 +14,11 @@ describe Resqutils::StaleWorkers do
       ]
     }
 
-    before do
+    after do
       ENV.delete("RESQUTILS_SECONDS_TO_BE_CONSIDERED_STALE")
+    end
+
+    before do
       allow(Resque).to receive(:workers).and_return(workers)
     end
 

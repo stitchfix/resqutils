@@ -6,8 +6,8 @@ module Resqutils
       self.new.kill_stale_workers
     end
 
-    def initialize(stale_workers: nil)
-      @stale_workers = stale_workers || Resqutils::StaleWorkers.new
+    def initialize(options={})
+      @stale_workers = options.fetch(:stale_workers, Resqutils::StaleWorkers.new)
     end
     def kill_stale_workers
       @stale_workers.each do |worker|
