@@ -5,6 +5,8 @@ rvm:
   - 2.0.0
   - 1.9.3
   - ruby-head
+before_install:
+  - gem install bundler
 gemfile:
   - Gemfile
   - gemfiles/rspec2.gemfile
