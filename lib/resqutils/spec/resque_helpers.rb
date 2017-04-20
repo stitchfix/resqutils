@@ -26,7 +26,11 @@ module Resqutils::Spec::ResqueHelpers
           end
     raise "No jobs on #{queue}" if job.nil?
     klass = job["class"].constantize
-    klass.should == expected_class
+    if Gem.loaded_specs['rspec'].version >= Gem::Version.new('3')
+      expect(klass).to eq(expected_class)
+    else
+      klass.should == expected_class
+    end
     block.call(job)
     klass.perform(*job["args"])
   end
