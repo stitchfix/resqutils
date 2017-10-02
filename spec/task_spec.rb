@@ -7,7 +7,13 @@ describe Resqutils::Task do
   subject(:task) { described_class.new(io: io) }
 
   describe "#invoke" do
-    let(:rake_task) { instance_double(Rake::Task) }
+    let(:rake_task) {
+      if self.respond_to?(:instance_double)
+        instance_double(Rake::Task)
+      else # deal with RSpec 2
+        double(Rake::Task)
+      end
+    }
     before do
       ENV.delete("TERM_CHILD")
       ENV.delete("RESQUE_TERM_TIMEOUT")

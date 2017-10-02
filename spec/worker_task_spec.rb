@@ -3,7 +3,13 @@ require "rake"
 require "resqutils/worker_task"
 
 describe "resqutils:work task" do
-  let(:resque_work_task) { instance_double(Rake::Task) }
+  let(:resque_work_task) {
+    if self.respond_to?(:instance_double)
+      instance_double(Rake::Task)
+    else # deal with RSpec 2
+      double(Rake::Task)
+    end
+  }
   before do
     allow(Rake::Task).to receive(:[]).with("resque:work").and_return(resque_work_task)
     allow(Rake::Task).to receive(:[]).with("resqutils:work").and_call_original
