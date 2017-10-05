@@ -17,7 +17,7 @@ GEM
     rack-protection (2.0.0)
       rack
     rake (12.1.0)
-    redis (3.3.3)
+    redis (3.3.5)
     redis-namespace (1.5.3)
       redis (~> 3.0, >= 3.0.4)
     resque (1.27.4)
